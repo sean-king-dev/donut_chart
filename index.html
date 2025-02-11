@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doughnut Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .chart-container {
+            width: 50%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Country Distribution</h2>
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const data = {
+            labels: [
+                "Georgia", "Brazil", "Mexico", "Hong Kong", "Italy", "Turkey", 
+                "Iran", "Spain", "Russian Federation", "China", "Other (11 countries)"
+            ],
+            datasets: [{
+                data: [13, 13, 11, 9, 9, 9, 7, 6, 5, 4, 14], // Percentage values
+                backgroundColor: [
+                    "#C42C62", "#48BCE1", "#DC799C", "#6BC147", "#E39BAE", 
+                    "#6DB6DD", "#D9EDC5", "#F2D3DB", "#C8E2B1", "#EAF4FD", "#68C750"
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
