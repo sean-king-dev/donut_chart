@@ -3,63 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doughnut Chart</title>
+    <title>Chart with Legend</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
         .chart-container {
-            width: 50%;
-            max-width: 500px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .chart {
+            flex-grow: 1;
+        }
+
+        .chart-container {
+            width: 400px;
+            margin: 0 auto;
+        }
+        .legend {
+            margin-left: 20px;
+            padding: 10px;
+            list-style: none;
+            font-family: Arial, sans-serif;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .legend-color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .legend-text {
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <h2>Country Distribution</h2>
-    <div class="chart-container">
-        <canvas id="myChart"></canvas>
-    </div>
+<div class="chart-container">
+    <canvas id="myChart" class="chart"></canvas>
+    <ul class="legend" id="legend"></ul>
+</div>
 
-    <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
 
-        const data = {
-            labels: [
-                "Georgia", "Brazil", "Mexico", "Hong Kong", "Italy", "Turkey", 
-                "Iran", "Spain", "Russian Federation", "China", "Other (11 countries)"
+    const data = {
+        labels: [
+            "Georgia", "Brazil", "Mexico", "Hong Kong", "Italy", "Turkey", 
+            "Iran", "Spain", "Russian Federation", "China", "Other (11 countries)"
+        ],
+        datasets: [{
+            data: [13, 13, 11, 9, 9, 9, 7, 6, 5, 4, 14],
+            backgroundColor: [
+                "#C42C62", "#48BCE1", "#DC799C", "#6BC147", "#E39BAE", 
+                "#6DB6DD", "#D9EDC5", "#F2D3DB", "#C8E2B1", "#EAF4FD", "#68C750"
             ],
-            datasets: [{
-                data: [13, 13, 11, 9, 9, 9, 7, 6, 5, 4, 14], // Percentage values
-                backgroundColor: [
-                    "#C42C62", "#48BCE1", "#DC799C", "#6BC147", "#E39BAE", 
-                    "#6DB6DD", "#D9EDC5", "#F2D3DB", "#C8E2B1", "#EAF4FD", "#68C750"
-                ],
-                borderWidth: 1
-            }]
-        };
+            borderWidth: 1
+        }]
+    };
 
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                    }
+    // Create the chart
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    display: false, // Hide the default legend
                 }
             }
+        }
+    });
+
+    // Function to create the custom legend
+    function createLegend() {
+        const legendContainer = document.getElementById('legend');
+        const labels = data.labels;
+        const backgroundColors = data.datasets[0].backgroundColor;
+        const values = data.datasets[0].data;
+
+        // Loop through the data and create legend items
+        labels.forEach((label, index) => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('legend-item');
+
+            const colorBox = document.createElement('div');
+            colorBox.classList.add('legend-color-box');
+            colorBox.style.backgroundColor = backgroundColors[index];
+
+            const legendText = document.createElement('span');
+            legendText.classList.add('legend-text');
+            legendText.textContent = `${label}: ${values[index]}`;
+
+            listItem.appendChild(colorBox);
+            listItem.appendChild(legendText);
+            legendContainer.appendChild(listItem);
         });
-    </script>
+    }
+
+    // Call the function to create the legend
+    createLegend();
+</script>
 
 </body>
 </html>
-
-
