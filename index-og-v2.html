@@ -6,106 +6,45 @@
     <title>Chart with Legend</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        .chart-container {
             display: flex;
-            justify-content: center;
             align-items: flex-start;
-            height: 100vh;
-            margin: 0;
+        }
+        .chart {
+            flex-grow: 1;
         }
 
         .chart-container {
-            display: flex;
-            flex-direction: row;
-            /* justify-content: space-between; */
-            justify-content: center;
-            /* width: 100%; */
-            /* max-width: 30%; */
-            margin-top: 50px;
-            /* border: 1px solid red; */
+            width: 400px;
+            margin: 0 auto;
         }
-
-        .chart {
-             /* border: 2px solid black; */
-             width: 50%;
-        }
-
         .legend {
+            margin-left: 20px;
+            padding: 10px;
             list-style: none;
-            margin: 0;
-            padding: 0;
-            width: 400px; 
-            width: 50%;
-            font-size: 14px;
-            /* border: 1px solid lime; */
+            font-family: Arial, sans-serif;
         }
-
         .legend-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-            /* border: 2px solid purple; */
-            min-width: 250px;
+            margin-bottom: 8px;
         }
-
         .legend-color-box {
-            width: 50px;
+            width: 20px;
             height: 20px;
             margin-right: 10px;
         }
-
         .legend-text {
-            font-size: .8rem;
-        }
-
-        section.chart_wrapper {
-            /* border: 2px solid orange; */
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        .chart-container {
-            /* border: 1px solid dodgerblue; */
-            width: 100%;
-        }
-
-        .chart-container-el {
-            /* border: 3px dashed red; */
-            /* width: 400px; */
-            /* margin: 0 auto; */
-            width: 320px;
-            margin-right: 50px;
-        }
-
-        .country-list {
-            /* border: 1px solid lime; */
-            width: 400px;
-        }
-
-        .country-list ul {
-            /* border: 2px solid blue; */
-            /* display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center; */
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <section class="chart_wrapper">
-        <div class="chart-container">
-
-            <div class="chart-container-el">
-                <canvas id="myChart" class="chart"></canvas>
-            </div>
-            <div class="country-list">
-                <ul class="legend" id="legend"></ul>
-            </div>
-            
-        </div>
-    </section>
+<div class="chart-container">
+    <canvas id="myChart" class="chart"></canvas>
+    <ul class="legend" id="legend"></ul>
+</div>
 
 <script>
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -125,6 +64,7 @@
         }]
     };
 
+    // Create the chart
     new Chart(ctx, {
         type: 'doughnut',
         data: data,
@@ -133,7 +73,7 @@
             plugins: {
                 legend: {
                     position: 'top',
-                    display: false,
+                    display: false, // Hide the default legend
                 }
             }
         }
@@ -170,4 +110,4 @@
 </script>
 
 </body>
-</html
+</html>
